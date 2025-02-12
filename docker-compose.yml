@@ -1,0 +1,24 @@
+services:
+  agenda-db:
+    container_name: agenda-db
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: agendadb
+    ports:
+      - 5432:5432
+    volumes:
+      - agenda-db:/var/lib/postgresql/data
+    networks:
+      - network
+
+      
+networks:
+  network:
+    driver: bridge
+
+volumes:
+  agenda-db:
+    driver: local
