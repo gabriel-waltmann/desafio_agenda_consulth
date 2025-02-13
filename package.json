@@ -4,11 +4,16 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite",
-        "serve": "php artisan serve"
+        "serve": "php artisan serve",
+        "db:migrate:apply": "php artisan migrate",
+        "db:migrate:create": "php artisan make:migration",
+        "db:model:create": "php artisan make:model",
+        "db:factory:create": "php artisan make:factory",
+        "db:controller:create": "php artisan make:controller"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.20",
-        "axios": "^1.7.4",
+        "axios": "^1.7.9",
         "concurrently": "^9.0.1",
         "laravel-vite-plugin": "^1.2.0",
         "postcss": "^8.5.2",
