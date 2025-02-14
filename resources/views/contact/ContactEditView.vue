@@ -4,7 +4,7 @@
       <h1 class="text-2xl">Editar contato</h1>
     </header>
 
-    <main class="flex flex-col gap-2 flex-1">
+    <main-container>
       <div class="flex-1 flex flex-col gap-2" v-if="contact">
         <contact-form 
           :form="form" 
@@ -16,7 +16,7 @@
       <template v-else>
         <h2 class="text-base text-center">Erro ao encontrar contato</h2>
       </template>
-    </main>
+    </main-container>
   </div>
 </template>
 
@@ -34,6 +34,7 @@ import { onMounted, ref, Ref } from 'vue';
 import { ContactEntity } from '../../entities/contact/ContactEntity';
 import { ContactFormAddressEntity } from '../../entities/components/forms/contact/ContactFormAddressEntity';
 import { ContactFormPhoneEntity } from '../../entities/components/forms/contact/ContactFormPhoneEntity';
+import MainContainer from '../../components/containers/MainContainerComponent.vue';
 
 const route = useRoute();
 

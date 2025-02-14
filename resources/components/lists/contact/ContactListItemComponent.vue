@@ -1,6 +1,6 @@
 <template>
   <div 
-    class="border w-full rounded-lg border-gray-200 hover:bg-gray-100 transition-all ease-in duration-200 p-2 flex flex-row items-center"
+    class="border w-full rounded-lg border-gray-200 hover:bg-gray-100 transition-all ease-in duration-200 p-2 flex flex-row items-center hover:cursor-pointer"
   >
     <article class="flex flex-col flex-1 justify-start text-start">
       <h2 class="font-semibold text-base">{{ name }}</h2>
@@ -14,7 +14,6 @@
         src="../../../assets/icons/arrow-right.svg"
         alt="dots"
         width="24px"
-        class=" hover:cursor-pointer"
       >
     </button>
   </div>

@@ -4,7 +4,7 @@
       <h1 class="text-2xl">Contato</h1>
     </header>
 
-    <main class="flex flex-col gap-2 flex-1">
+    <main-container>
       <div class="flex-1 flex flex-col gap-2" v-if="contact">
         <section>
           <article class="flex flex-col gap-2">
@@ -40,22 +40,20 @@
         <h2 class="text-base text-center">Erro ao encontrar contato</h2>
       </template>
 
-      <nav>
-        <nav class="flex flex-col gap-2 w-full">
-          <button @click="goToIndexPage" type="button" class="border py-1 px-2 rounded-2xl w-full">
-            VOLTAR
-          </button>
+      <nav class="flex flex-col md:flex-row md:justify-end gap-2 w-full">
+        <primary-button @click="goToIndexPage">
+          <span>VOLTAR</span>
+        </primary-button>
 
-          <button @click="goToContactEditPage" type="button" class="border py-1 px-2 rounded-2xl w-full">
-            EDITAR
-          </button>
+        <primary-button @click="goToContactEditPage">
+          EDITAR
+        </primary-button>
 
-          <button @click="deleteContact" type="button" class="border py-1 px-2 rounded-2xl w-full">
-            DELETAR
-          </button>
-        </nav>
+        <primary-button @click="deleteContact">
+          DELETAR
+        </primary-button>
       </nav>
-    </main>
+    </main-container>
   </div>
 </template>
 
@@ -69,6 +67,8 @@ import * as phoneNumberUtil from "../../utils/phone";
 import { useRoute, useRouter } from 'vue-router';
 import { onMounted, Ref, ref } from 'vue';
 import { ContactEntity } from '../../entities/contact/ContactEntity';
+import MainContainer from '../../components/containers/MainContainerComponent.vue';
+import PrimaryButton from '../../components/buttons/PrimaryButtonComponent.vue';
 
 const route = useRoute();
 

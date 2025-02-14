@@ -105,14 +105,14 @@
       </section>
     </div>
 
-    <nav class="flex flex-col gap-2 w-full">
-      <button type="submit" class="border py-1 px-2 rounded-2xl w-full">
-        SALVAR
-      </button>
-
-      <button @click="emitCancel" type="button" class="border py-1 px-2 rounded-2xl w-full">
-        CANCELAR
-      </button>
+    <nav class="flex flex-col md:flex-row md:justify-end gap-2 w-full">
+      <primary-button type="submit">
+        <span>SALVAR</span>
+      </primary-button>
+      
+      <primary-button @click="emitCancel">
+        <span>CANCELAR</span>
+      </primary-button>
     </nav>
   </form>
 </template>
@@ -127,6 +127,7 @@ import * as emailUtil from "../../utils/email";
 import * as phoneNumberUtil from "../../utils/phone";
 import { ContactFormEmit } from '../../entities/components/forms/contact/ContactFormEmit';
 import { ContactFormEntity } from '../../entities/components/forms/contact/ContactFormEntity';
+import PrimaryButton from '../buttons/PrimaryButtonComponent.vue';
 
 const emit: ContactFormEmit = defineEmits(["submit", "cancel"]);
 

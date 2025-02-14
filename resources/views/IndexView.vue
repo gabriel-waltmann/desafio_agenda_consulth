@@ -1,20 +1,24 @@
 <template>
-  <main class="w-full h-full flex flex-col gap-2 p-2">
+  <div class="w-full h-full flex flex-col gap-6 p-2">
     <header class="flex flex-row justify-between">
       <h1 class="text-2xl">Contatos</h1>
 
       <nav class="flex flex-row gap-2">
-        <button @click="goToContactNew" class="border py-1 px-2 rounded-2xl">
-          + Contato
-        </button>
+        <primary-button @click="goToContactNew">
+          <span>NOVO CONTATO</span>
+        </primary-button>
       </nav>
     </header>
 
-    <contact-list 
-      :contacts="contacts" 
-      @go-to-contact="goToContact" 
-    />
-  </main>
+    <main-container>
+      <section class="w-full">
+        <contact-list
+          :contacts="contacts"
+          @go-to-contact="goToContact"
+        />
+      </section>
+    </main-container>
+  </div>
 </template>
 
 <script lang="ts">
@@ -27,6 +31,8 @@ import { ContactEntity } from "../entities/contact/ContactEntity";
 import { ref, onMounted, Ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import MainContainer from "../components/containers/MainContainerComponent.vue";
+import PrimaryButton from "../components/buttons/PrimaryButtonComponent.vue";
 
 const router = useRouter();
 

@@ -4,13 +4,13 @@
       <h1 class="text-2xl">Novo contato</h1>
     </header>
 
-    <main class="flex flex-col gap-2 flex-1">
+    <main-container>
       <contact-form 
         :form="form" 
         @submit="handleSubmit"
         @cancel="goToIndexPage"
       />
-    </main>
+    </main-container>
   </div>
 </template>
 
@@ -25,6 +25,7 @@ import { ContactFormEntity } from '../../entities/components/forms/contact/Conta
 import * as phoneNumberUtil from "../../utils/phone";
 import { useRouter } from 'vue-router';
 import { ref, Ref } from 'vue';
+import MainContainer from '../../components/containers/MainContainerComponent.vue';
 
 const form: Ref<ContactFormEntity> = ref({
   name: "",
