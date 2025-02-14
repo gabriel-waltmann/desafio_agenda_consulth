@@ -22,7 +22,7 @@ export default {};
 </script>
 
 <script lang="ts" setup>
-import ContactList from "../components/contact/contact-list.vue";
+import ContactList from "../components/lists/contact/ContactListComponent.vue";
 import { ContactEntity } from "../entities/contact/ContactEntity";
 import { ref, onMounted, Ref } from "vue";
 import axios from "axios";
@@ -32,7 +32,7 @@ const router = useRouter();
 
 async function goToContactNew() {
   try {
-    await router.push("/new");
+    await router.push({ name: "contact-new" });
   } catch (error: any) {
     console.error(error);
   }

@@ -11,7 +11,7 @@
 
     <button type="button" @click="emitGoToContact">
       <img
-        src="../../assets/icons/arrow-right.svg"
+        src="../../../assets/icons/arrow-right.svg"
         alt="dots"
         width="24px"
         class=" hover:cursor-pointer"
@@ -26,8 +26,8 @@ export default {};
 
 <script lang="ts" setup>
 import { computed, ComputedRef, PropType } from 'vue';
-import { ContactEntity } from '../../entities/contact/ContactEntity';
-import * as phoneNumberUtil from "../../utils/phone-number";
+import { ContactEntity } from '../../../entities/contact/ContactEntity';
+import * as phoneNumberUtil from "../../../utils/phone";
 
 const props = defineProps({
   contact: {

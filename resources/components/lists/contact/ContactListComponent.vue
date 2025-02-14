@@ -1,7 +1,7 @@
 <template>
   <ul class="flex flex-col gap-2 w-full">
     <li v-for="item of contacts">
-      <contact-item 
+      <contact-list-item 
         :contact="item" 
         @go-to-contact="emitGoToContact" 
       />
@@ -15,8 +15,8 @@ export default {};
 
 <script lang="ts" setup>
 import { PropType } from "vue";
-import { ContactEntity } from "../../entities/contact/ContactEntity";
-import ContactItem from "./contact-item.vue";
+import { ContactEntity } from "../../../entities/contact/ContactEntity";
+import ContactListItem from "./ContactListItemComponent.vue";
 
 const props = defineProps({
   contacts: {
