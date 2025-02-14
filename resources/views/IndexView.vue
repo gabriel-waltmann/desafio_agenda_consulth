@@ -35,6 +35,8 @@ async function goToContactNew() {
     await router.push({ name: "contact-new" });
   } catch (error: any) {
     console.error(error);
+
+    alert("Não foi possível abrir a página. Por favor, tente novamente em alguns instantes.");
   }
 }
 
@@ -52,54 +54,17 @@ async function handleContacts(): Promise<void> {
   }
 }
 
-// async function createContact() {
-//   try {
-//     const { status, data } = await axios.post("/api/contact", {
-//       name: "Novo contato",
-//       email: "novocontato@gmail.com",
-//       phones: [
-//         { number: "47996153008", countryCode: "55" },
-//         { number: "11996153009", countryCode: "55" }
-//       ],
-//     });
-
-//     if (status !== 200) throw new Error("Não foi possível criar o contato");
-
-//     contacts.value.push(data);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
 async function goToContact(contact: ContactEntity): Promise<void> {
   try {
-    const { status, data } = await axios.delete(`/api/contact/${contact.id}`);
-
-    if (status !== 200) throw new Error("Não foi possível deletar o contato");
-
-    contacts.value = contacts.value.filter((item) => item.id !== contact.id);
+    await router.push({ name: "contact", params: { id: contact.id } });
   } catch (error) {
     console.error(error);
+
+    alert("Não foi possível carregar o contato. Por favor, tente novamente em alguns instantes.");
   }
 }
 
-const contacts: Ref<ContactEntity[]> = ref([
-  // { 
-  //   id: 1, 
-  //   name: "contact 1", 
-  //   email: "contact1@gmail.com", 
-  //   phones: [{ 
-  //     id: 1, 
-  //     contact_id: 1, 
-  //     phone_id: 1, 
-  //     phone: { 
-  //       id: 1,
-  //       number: "47996153009",
-  //       countryCode: "55"
-  //     },
-  //   }]
-  // },
-])
+const contacts: Ref<ContactEntity[]> = ref([])
 
 onMounted(async () => {
   await handleContacts();

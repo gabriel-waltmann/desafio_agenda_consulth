@@ -46,7 +46,7 @@ const phoneNumber: ComputedRef<string> = computed(() => {
 
   if (!props.contact.phones[0].phone) return "";
 
-  return phoneNumberUtil.format(props.contact.phones[0].phone);
+  return phoneNumberUtil.format(props.contact.phones[0].phone.number);
 })
 
 function emitGoToContact(): void {

@@ -35,7 +35,7 @@ async function handleSubmit(form: ContactFormEntity) {
       address: form.address
     });
 
-    if (status !== 200) throw new Error("Não foi possível criar o contato");
+    if (status !== 201) throw new Error("Não foi possível criar o contato");
 
     await router.push({ name: "contact", params: { id: data.id } });
   } catch (error) {

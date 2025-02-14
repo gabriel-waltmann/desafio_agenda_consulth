@@ -97,6 +97,85 @@ class ContactController extends Controller {
         }
     }
 
+    public function update(Request $request, $id) {
+        \DB::beginTransaction();
+        try {
+            $request->validate([
+                'name' => 'required',
+                'phones' => 'required|array',
+                'email' => 'required',
+                'phones.*.number' => 'required',
+                'phones.*.countryCode' => 'required',
+            ]);
+
+            $contact = Contact::find($id);
+
+            if (!$contact) {
+                throw new \Exception('Contact not found');
+            }
+
+            $contact->update($request->all());
+
+            foreach ($request->phones as $phone) {
+                if ($phone['id']) {
+                    $contactPhone = ContactPhone::find($phone['id']);
+
+                    if (!$contactPhone) {
+                        throw new \Exception('Contact phone not found');
+                    }
+
+                    $phone = $contactPhone->phone->update($phone);
+
+                    if (!$phone) {
+                        throw new \Exception('Failed to update phone');
+                    }
+
+                    continue;
+                }
+
+                $phone = Phone::create($phone);
+
+                if (!$phone) {
+                    throw new \Exception('Failed to create phone');
+                }
+
+                $contactPhone = ContactPhone::create([
+                    'contact_id' => $contact->id,
+                    'phone_id' => $phone->id,
+                ]);
+
+                if (!$contactPhone) {
+                    throw new \Exception('Failed to create contact phone');
+                }
+            }
+
+            \DB::commit();
+
+            $response = [
+                'id' => $contact->id,
+                'name' => $contact->name,
+                'email' => $contact->email,
+                'phones' => $contact->phones->map(function ($contactPhone) {
+                    return [
+                        'id' => $contactPhone->id,
+                        'contact_id' => $contactPhone->contact_id,
+                        'phone_id' => $contactPhone->phone_id,
+                        'phone' => [
+                            'id' => $contactPhone->phone->id,
+                            'number' => $contactPhone->phone->number,
+                            'countryCode' => $contactPhone->phone->countryCode,
+                        ],
+                    ];
+                })->toArray(),
+            ];
+
+            return response()->json($response);
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            return response()->json(['error' => 'An error occurred', 'message' => $e->getMessage()], 500);
+        }
+    }
+    
     public function destroy($id) {
         \DB::beginTransaction();
         try {
@@ -128,5 +207,33 @@ class ContactController extends Controller {
 
             return response()->json(['error' => 'An error occurred', 'message' => $e->getMessage()], 500);
         }
+    }
+
+    public function show($id) {
+        $contact = Contact::with('phones.phone')->find($id);
+
+        if (!$contact) {
+            return response()->json(['error' => 'Contact not found'], 404);
+        }
+
+        $response = [
+            'id' => $contact->id,
+            'name' => $contact->name,
+            'email' => $contact->email,
+            'phones' => $contact->phones->map(function ($contactPhone) {
+                return [
+                    'id' => $contactPhone->id,
+                    'contact_id' => $contactPhone->contact_id,
+                    'phone_id' => $contactPhone->phone_id,
+                    'phone' => [
+                        'id' => $contactPhone->phone->id,
+                        'number' => $contactPhone->phone->number,
+                        'countryCode' => $contactPhone->phone->countryCode,
+                    ],
+                ];
+            })->toArray(),
+        ];
+
+        return response()->json($response);
     }
 }

@@ -8,5 +8,5 @@ export interface ContactEntity {
 
   // relations
   phones?: Array<ContactPhoneEntity>;
-  address?: Array<ContactAddressEntity>;
+  address?: ContactAddressEntity;
 }
