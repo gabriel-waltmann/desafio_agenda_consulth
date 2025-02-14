@@ -32,6 +32,8 @@ import * as phoneNumberUtil from "../../utils/phone";
 import { useRoute, useRouter } from 'vue-router';
 import { onMounted, ref, Ref } from 'vue';
 import { ContactEntity } from '../../entities/contact/ContactEntity';
+import { ContactFormAddressEntity } from '../../entities/components/forms/contact/ContactFormAddressEntity';
+import { ContactFormPhoneEntity } from '../../entities/components/forms/contact/ContactFormPhoneEntity';
 
 const route = useRoute();
 
@@ -95,21 +97,28 @@ async function handleContact(contactId: string): Promise<void> {
 } 
 
 function getContactForm(contact: ContactEntity): ContactFormEntity {
+  const contactPhones = contact.phones ?? [];
+  const phones: ContactFormPhoneEntity[] = contactPhones.map(({phone}) => ({
+    countryCode: phone?.countryCode ?? "55",
+    number: phoneNumberUtil.format(phone?.number ?? "")
+  }));
+
+  const contactAddress = contact.address?.address;
+  const address: ContactFormAddressEntity = {
+    id: contact.address?.id,
+    country: contactAddress?.country ?? "Brasil",
+    state: contactAddress?.state ?? "",
+    city: contactAddress?.city ?? "",
+    neighborhood: contactAddress?.neighborhood ?? "",
+    address: contactAddress?.address ?? "",
+    zipCode: contactAddress?.zipCode ?? "",
+  };
+
   return {
     name: contact.name,
     email: contact.email,
-    address: {
-      country: "Brasil",
-      state: "",
-      city: "",
-      neighborhood: "",
-      address: "",
-      zipCode: "",
-    },
-    phones: contact.phones?.map(({phone}) => ({
-      countryCode: phone?.countryCode ?? "55",
-      number: phoneNumberUtil.format(phone?.number ?? "")
-    })) ?? []
+    address,
+    phones,
   }
 }
 

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Contact;
 use App\Models\ContactPhone;
 use App\Models\Phone;
+use App\Models\ContactAddress;
+use App\Models\Address;
 
 class ContactController extends Controller {
     public function index() {
@@ -45,14 +47,23 @@ class ContactController extends Controller {
                 'phones' => 'required|array',
                 'phones.*.number' => 'required',
                 'phones.*.countryCode' => 'required',
+                'address' => 'required',
+                'address.country' => 'required',
+                'address.state' => 'required',
+                'address.city' => 'required',
+                'address.neighborhood' => 'required',
+                'address.address' => 'required',
+                'address.zipCode' => 'required',
             ]);
 
+            // store contact
             $contact = Contact::create($request->all());
 
             if (!$contact) {
                 throw new \Exception('Failed to create contact');
             }
 
+            // store phones
             foreach ($request->phones as $phone) {
                 $phone = Phone::create($phone);
 
@@ -69,7 +80,23 @@ class ContactController extends Controller {
                     throw new \Exception('Failed to create contact phone');
                 }
             }
+
+            // store address
+            $address = Address::create($request->address);
     
+            if (!$address) {
+                throw new \Exception('Failed to create address');
+            }
+
+            $contactAddress = ContactAddress::create([
+                'contact_id' => $contact->id,
+                'address_id' => $address->id,
+            ]);
+
+            if (!$contactAddress) {
+                throw new \Exception('Failed to create contact address');
+            }
+
             \DB::commit();
 
             $response = [
@@ -88,6 +115,19 @@ class ContactController extends Controller {
                         ],
                     ];
                 })->toArray(),
+                'address' => [
+                    'id' => $address->id,
+                    'contact_id' => $contactAddress->contact_id,
+                    'address_id' => $contactAddress->address_id,
+                    'address' => [
+                        'id' => $address->id,
+                        'country' => $address->country,
+                        'city' => $address->city,
+                        'neighborhood' => $address->neighborhood,
+                        'address' => $address->address,
+                        'zipCode' => $address->zipCode,
+                    ]
+                ]
             ];
 
             return response()->json($response, 201);
@@ -102,10 +142,18 @@ class ContactController extends Controller {
         try {
             $request->validate([
                 'name' => 'required',
-                'phones' => 'required|array',
                 'email' => 'required',
+                'phones' => 'required|array',
                 'phones.*.number' => 'required',
                 'phones.*.countryCode' => 'required',
+                'address' => 'required',
+                'address.id' => 'required',
+                'address.country' => 'required',
+                'address.state' => 'required',
+                'address.city' => 'required',
+                'address.neighborhood' => 'required',
+                'address.address' => 'required',
+                'address.zipCode' => 'required',
             ]);
 
             $contact = Contact::find($id);
@@ -114,6 +162,7 @@ class ContactController extends Controller {
                 throw new \Exception('Contact not found');
             }
 
+            // update contact
             $contact->update($request->all());
 
             // delete all related contact phones
@@ -127,6 +176,7 @@ class ContactController extends Controller {
                 }
             }
 
+            // crete new phones
             foreach ($request->phones as $phone) {
                 $phone = Phone::create($phone);
 
@@ -143,6 +193,21 @@ class ContactController extends Controller {
                     throw new \Exception('Failed to create contact phone');
                 }
             }
+
+            $contactAddress = ContactAddress::where('contact_id', $contact->id)->first();
+
+            if (!$contactAddress) {
+                throw new \Exception('Contact address not found');
+            }
+
+            $address = Address::find($contactAddress->address_id);
+
+            if (!$address) {
+                throw new \Exception('Address not found');
+            }
+
+            // update address
+            $address->update($request->address);
 
             \DB::commit();
 
@@ -162,6 +227,19 @@ class ContactController extends Controller {
                         ],
                     ];
                 })->toArray(),
+                'address' => [
+                    'id' => $address->id,
+                    'contact_id' => $contactAddress->contact_id,
+                    'address_id' => $contactAddress->address_id,
+                    'address' => [
+                        'id' => $address->id,
+                        'country' => $address->country,
+                        'city' => $address->city,
+                        'neighborhood' => $address->neighborhood,
+                        'address' => $address->address,
+                        'zipCode' => $address->zipCode,
+                    ]
+                ]
             ];
 
             return response()->json($response);
@@ -190,8 +268,26 @@ class ContactController extends Controller {
                 if ($phone) {
                     $phone->delete();
                 }
-            }            
+            }     
+            
+            // Delete all related address
+            $contactAddress = ContactAddress::where('contact_id', $contact->id)->first();
 
+            if (!$contactAddress) {
+                throw new \Exception('Contact address not found');
+            }
+
+            $contactAddress->delete();
+
+            $address = Address::find($contactAddress->address_id);
+
+            if (!$address) {
+                throw new \Exception('Address not found');
+            }
+
+            $address->delete();
+
+            // Delete contact
             $contact->delete();
 
             \DB::commit();
@@ -205,7 +301,7 @@ class ContactController extends Controller {
     }
 
     public function show($id) {
-        $contact = Contact::with('phones.phone')->find($id);
+        $contact = Contact::find($id);
 
         if (!$contact) {
             return response()->json(['error' => 'Contact not found'], 404);
@@ -227,6 +323,20 @@ class ContactController extends Controller {
                     ],
                 ];
             })->toArray(),
+            'address' => [
+                'id' => $contact->address->id,
+                'contact_id' => $contact->address->contact_id,
+                'address_id' => $contact->address->address_id,
+                'address' => [
+                    'id' => $contact->address->address->id,
+                    'country' => $contact->address->address->country,
+                    'state' => $contact->address->address->state,
+                    'city' => $contact->address->address->city,
+                    'neighborhood' => $contact->address->address->neighborhood,
+                    'address' => $contact->address->address->address,
+                    'zipCode' => $contact->address->address->zipCode,
+                ]
+            ]
         ];
 
         return response()->json($response);

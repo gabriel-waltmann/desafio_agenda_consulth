@@ -1,4 +1,4 @@
-export interface AddressEntity {
+export interface  AddressEntity {
   id: number;
   country: string;
   state: string;

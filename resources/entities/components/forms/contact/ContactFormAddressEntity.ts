@@ -1,4 +1,5 @@
 export interface ContactFormAddressEntity {
+  id?: number
   country: string,
   state: string,
   city: string,
