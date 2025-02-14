@@ -44,6 +44,13 @@
         >
 
         <input 
+          placeholder="Bairro" 
+          class="border border-gray-200 rounded-xl p-2" 
+          type="text"
+          v-model="form.address.neighborhood"
+        >
+
+        <input 
           placeholder="Endereço" 
           class="border border-gray-200 rounded-xl p-2" 
           type="text"
@@ -115,7 +122,7 @@ export default {};
 </script>
 
 <script lang="ts" setup>
-import { onMounted, PropType, Ref, ref, watch } from 'vue';
+import { PropType, Ref, ref, watch } from 'vue';
 import * as emailUtil from "../../utils/email";
 import * as phoneNumberUtil from "../../utils/phone";
 import { ContactFormEmit } from '../../entities/components/forms/contact/ContactFormEmit';

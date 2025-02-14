@@ -64,7 +64,6 @@ async function handleSubmit(form: ContactFormEntity): Promise<void> {
       name: form.name,
       email: form.email,
       phones: form.phones.map((phone) => ({
-        id: phone.id,
         number: phoneNumberUtil.parse(phone.number),
         countryCode: phone.countryCode
       })),

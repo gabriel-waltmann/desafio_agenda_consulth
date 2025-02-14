@@ -41,8 +41,8 @@ class ContactController extends Controller {
         try {
             $request->validate([
                 'name' => 'required',
-                'phones' => 'required|array',
                 'email' => 'required',
+                'phones' => 'required|array',
                 'phones.*.number' => 'required',
                 'phones.*.countryCode' => 'required',
             ]);

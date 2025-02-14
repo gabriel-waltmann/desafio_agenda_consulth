@@ -1,5 +1,5 @@
 <template>
-  <main class="w-full h-full flex flex-col gap-1 p-2">
+  <main class="w-full h-full flex flex-col gap-2 p-2">
     <header class="flex flex-row justify-between">
       <h1 class="text-2xl">Contatos</h1>
 

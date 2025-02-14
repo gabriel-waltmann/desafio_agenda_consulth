@@ -5,7 +5,11 @@
     </header>
 
     <main class="flex flex-col gap-2 flex-1">
-      <contact-form :form="form" @submit="handleSubmit" />
+      <contact-form 
+        :form="form" 
+        @submit="handleSubmit"
+        @cancel="goToIndexPage"
+      />
     </main>
   </div>
 </template>
@@ -63,4 +67,13 @@ async function handleSubmit(form: ContactFormEntity) {
   }
 }
 
+async function goToIndexPage() {
+  try {
+    await router.push({ name: "index" });
+  } catch (error: any) {
+    console.error(error);
+
+    alert("Não foi possível abrir a página. Por favor, tente novamente em alguns instantes.");
+  }
+}
 </script>

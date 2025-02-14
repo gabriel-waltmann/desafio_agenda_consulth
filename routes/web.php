@@ -24,7 +24,7 @@ Route::get('/api/contacts', [ContactController::class, 'index']);
 
 Route::get('/api/contact/{id}', [ContactController::class, 'show']);
 
-Route::post('/api/contact', [ContactController::class, 'update']);
+Route::post('/api/contact', [ContactController::class, 'store']);
 
 Route::put('/api/contact/{id}', [ContactController::class, 'update']);
 

@@ -1,9 +1,9 @@
 <template>
   <ul class="flex flex-col gap-2 w-full">
-    <li v-for="item of contacts">
+    <li v-for="contact of contacts">
       <contact-list-item 
-        :contact="item" 
-        @go-to-contact="emitGoToContact" 
+        :contact="contact" 
+        @click="() => emitGoToContact(contact)" 
       />
     </li>
   </ul>

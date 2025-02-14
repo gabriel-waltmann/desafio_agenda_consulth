@@ -9,7 +9,7 @@
     </article>
 
 
-    <button type="button" @click="emitGoToContact">
+    <button type="button">
       <img
         src="../../../assets/icons/arrow-right.svg"
         alt="dots"
@@ -36,9 +36,6 @@ const props = defineProps({
   }
 })
 
-type Emits = { (e: 'go-to-contact', contact: ContactEntity): void };
-const emit: Emits = defineEmits(['go-to-contact']);
-
 const name: ComputedRef<string> = computed(() => props.contact.name);
 
 const phoneNumber: ComputedRef<string> = computed(() => {
@@ -48,8 +45,4 @@ const phoneNumber: ComputedRef<string> = computed(() => {
 
   return phoneNumberUtil.format(props.contact.phones[0].phone.number);
 })
-
-function emitGoToContact(): void {
-  emit('go-to-contact', props.contact);
-}
 </script>
