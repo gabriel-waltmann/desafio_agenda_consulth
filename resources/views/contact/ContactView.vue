@@ -118,7 +118,7 @@ async function deleteContact() {
 
 async function goToContactEditPage() {
   try {
-    await router.push({ name: "contact-edit" });
+    await router.push({ name: "contact-edit", params: { id: contact.value?.id } });
   } catch (error: any) {
     console.error(error);
 

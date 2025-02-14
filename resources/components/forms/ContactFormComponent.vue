@@ -89,7 +89,7 @@
               />
 
               <nav>
-                <button type="button" class="border h-8 w-8 rounded-full flex justify-center items-center">
+                <button @click="removePhone(index)" type="button" class="border h-8 w-8 rounded-full flex justify-center items-center">
                   <img src="../../assets/icons/trash.svg" class="w-6 h-6" alt="add button">
                 </button>
               </nav>
@@ -98,9 +98,13 @@
       </section>
     </div>
 
-    <nav class="flex flex-row gap-2 w-full">
+    <nav class="flex flex-col gap-2 w-full">
       <button type="submit" class="border py-1 px-2 rounded-2xl w-full">
-        + Contato
+        SALVAR
+      </button>
+
+      <button @click="emitCancel" type="button" class="border py-1 px-2 rounded-2xl w-full">
+        CANCELAR
       </button>
     </nav>
   </form>
@@ -111,15 +115,25 @@ export default {};
 </script>
 
 <script lang="ts" setup>
-import { onMounted, Ref, ref } from 'vue';
+import { onMounted, PropType, Ref, ref, watch } from 'vue';
 import * as emailUtil from "../../utils/email";
 import * as phoneNumberUtil from "../../utils/phone";
 import { ContactFormEmit } from '../../entities/components/forms/contact/ContactFormEmit';
 import { ContactFormEntity } from '../../entities/components/forms/contact/ContactFormEntity';
 
+const emit: ContactFormEmit = defineEmits(["submit", "cancel"]);
 
+const props = defineProps({
+  form: {
+    type: Object as PropType<ContactFormEntity>,
+    required: true
+  }
+});
 
-const emit: ContactFormEmit = defineEmits(["submit"]);
+watch(
+  () => props.form,
+  (newForm) => form.value = newForm
+)
 
 const form: Ref<ContactFormEntity> = ref({
   name: "",
@@ -138,8 +152,12 @@ const form: Ref<ContactFormEntity> = ref({
   }],
 })
 
-function emitSubmit(form: ContactFormEntity) {
+function emitSubmit(form: ContactFormEntity): void {
   emit("submit", form);
+}
+
+function emitCancel(): void {
+  emit("cancel");
 }
 
 function addPhone(): void {
@@ -189,5 +207,9 @@ async function handleSubmit(e: Event): Promise<void> {
   }  
 
   emitSubmit(form.value);
+}
+
+function removePhone(index: number): void {
+  form.value.phones.splice(index, 1);
 }
 </script>

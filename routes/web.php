@@ -16,6 +16,10 @@ Route::get('/contact/{id}', function () {
     return view('app');
 });
 
+Route::get('/contact/{id}/edit', function () {
+    return view('app');
+});
+
 Route::get('/api/contacts', [ContactController::class, 'index']);
 
 Route::get('/api/contact/{id}', [ContactController::class, 'show']);

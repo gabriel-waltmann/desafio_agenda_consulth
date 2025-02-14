@@ -4,9 +4,9 @@
       <h1 class="text-2xl">Novo contato</h1>
     </header>
 
-    <section class="flex-1">
-      <contact-form @submit="handleSubmit" />
-    </section>
+    <main class="flex flex-col gap-2 flex-1">
+      <contact-form :form="form" @submit="handleSubmit" />
+    </main>
   </div>
 </template>
 
@@ -20,6 +20,24 @@ import ContactForm from '../../components/forms/ContactFormComponent.vue';
 import { ContactFormEntity } from '../../entities/components/forms/contact/ContactFormEntity';
 import * as phoneNumberUtil from "../../utils/phone";
 import { useRouter } from 'vue-router';
+import { ref, Ref } from 'vue';
+
+const form: Ref<ContactFormEntity> = ref({
+  name: "",
+  email: "",
+  address: {
+    country: "Brasil",
+    state: "",
+    city: "",
+    neighborhood: "",
+    address: "",
+    zipCode: "",
+  },
+  phones: [{
+    countryCode: "55",
+    number: ""
+  }],
+})
 
 const router = useRouter();
 

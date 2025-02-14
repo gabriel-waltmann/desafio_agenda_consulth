@@ -8,7 +8,7 @@ export const format = (phone: string): string => {
 	let phoneFormatted = "";
 	const first2Digits = phoneString.slice(0, 2);
 	const next5Digits = phoneString.slice(2, 7);
-	const last4Digits = phoneString.slice(7, 12);
+	const last4Digits = phoneString.slice(7, 11);
 
 	if (first2Digits) {
 		phoneFormatted += `(${first2Digits})`;
@@ -27,5 +27,6 @@ export const format = (phone: string): string => {
 
 export const validate = (phoneNumber: string): boolean => {
 	const phone = parse(phoneNumber);
+
 	return phone.length === 11;
 }

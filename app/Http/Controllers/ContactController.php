@@ -116,23 +116,18 @@ class ContactController extends Controller {
 
             $contact->update($request->all());
 
-            foreach ($request->phones as $phone) {
-                if ($phone['id']) {
-                    $contactPhone = ContactPhone::find($phone['id']);
+            // delete all related contact phones
+            $oldContactPhones = ContactPhone::where('contact_id', $contact->id)->get();
+            foreach ($oldContactPhones as $contactPhone) {
+                $contactPhone->delete();
 
-                    if (!$contactPhone) {
-                        throw new \Exception('Contact phone not found');
-                    }
-
-                    $phone = $contactPhone->phone->update($phone);
-
-                    if (!$phone) {
-                        throw new \Exception('Failed to update phone');
-                    }
-
-                    continue;
+                $phone = Phone::find($contactPhone->phone_id);
+                if ($phone) {
+                    $phone->delete();
                 }
+            }
 
+            foreach ($request->phones as $phone) {
                 $phone = Phone::create($phone);
 
                 if (!$phone) {
