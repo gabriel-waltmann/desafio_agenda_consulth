@@ -9,20 +9,25 @@
         "db:migrate:create": "php artisan make:migration",
         "db:model:create": "php artisan make:model",
         "db:factory:create": "php artisan make:factory",
-        "db:controller:create": "php artisan make:controller"
+        "db:controller:create": "php artisan make:controller",
+        "cy:open": "cypress open",
+        "cy:run": "cypress run"
     },
     "devDependencies": {
+        "@types/cypress": "^1.1.6",
         "autoprefixer": "^10.4.20",
         "axios": "^1.7.9",
         "concurrently": "^9.0.1",
+        "cypress": "^14.0.3",
         "laravel-vite-plugin": "^1.2.0",
         "postcss": "^8.5.2",
+        "ts-loader": "^9.5.2",
+        "typescript": "^5.7.3",
         "vite": "^6.0.11"
     },
     "dependencies": {
         "@tailwindcss/postcss": "^4.0.6",
         "@vitejs/plugin-vue": "^5.2.1",
-        "phosphor-icons": "^1.4.2",
         "tailwindcss": "^4.0.6",
         "vue": "^3.5.13",
         "vue-router": "^4.5.0"
