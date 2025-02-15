@@ -4,16 +4,16 @@
 Sistema de agenda em Laravel e Vuejs
 
 ## 🔨 Funcionalidades
-❌ Tela de visualização para os contatos <br>
-❌ Formulário para cadastrar no contato <br>
-❌ Formulário para editar informações do contato <br>
-❌ Botão para remover contato da agenda <br>
+✔️ Tela de visualização para os contatos <br>
+✔️ Formulário para cadastrar no contato <br>
+✔️ Formulário para editar informações do contato <br>
+✔️ Botão para remover contato da agenda <br>
 
 ## 🔧 Tecnologias
 ✔️ Laravel <br>
 ✔️ Vuejs <br>
-✔️ Docker <br>
-✔️ Docker compose <br>
+✔️ Postgres <br>
+✔️ Docker / Docker compose <br>
 
 ## 🚀 Como rodar
 1. Clone o projeto: [repo](https://github.com/gabriel-waltmann/desafio_projeta_data)
