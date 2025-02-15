@@ -1,7 +1,9 @@
 <template>
   <page-container>
     <header class="flex flex-row justify-between">
-      <h1 class="text-2xl">Novo contato</h1>
+      <primary-text>
+        <span>Novo contato</span>
+      </primary-text>
     </header>
 
     <main-container>
@@ -27,6 +29,7 @@ import { useRouter } from 'vue-router';
 import { ref, Ref } from 'vue';
 import MainContainer from '../../components/containers/MainContainerComponent.vue';
 import PageContainer from "../../components/containers/PageContainerComponent.vue";
+import PrimaryText from "../../components/texts/PrimaryTextComponent.vue";
 
 const form: Ref<ContactFormEntity> = ref({
   name: "",

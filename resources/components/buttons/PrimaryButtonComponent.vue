@@ -1,5 +1,5 @@
 <template>
-  <button :type="buttonType" :class="`border py-1 px-2 rounded-2xl cursor-pointer ${customClass}`">
+  <button :type="buttonType" :class="`border border-gray-200 text-gray-600 py-1 px-2 rounded-2xl cursor-pointer ${customClass}`">
     <slot></slot>
   </button>
 </template>

@@ -70,14 +70,14 @@
           <h2 class="text-base font-semibold flex-1">Telefone</h2>
 
           <nav class="flex flex-row gap-2">
-            <button type="button" @click="addPhone" class="border rounded-full flex justify-center items-center h-8 w-8">
-              <img src="../../assets/icons/plus.svg" class="w-6 h-6" alt="add button">
-            </button>
+            <primary-button @click="addPhone">
+              <span>+ TELEFONE</span>
+            </primary-button>
           </nav>
         </div>
 
         <ul class="flex flex-col gap-2">
-          <li class="border border-gray-200 rounded-xl p-2 flex flex-row gap-2 items-center w-full" v-for="(phone, index) of form.phones">
+          <li class="border border-gray-200 rounded-xl p-2 flex md:flex-row gap-2 items-center w-full flex-wrap" v-for="(phone, index) of form.phones">
               <input
                 placeholder="Prefixo"
                 class="border border-gray-200 rounded-xl p-2 w-18"
@@ -88,17 +88,17 @@
 
               <input 
                 placeholder="Número" 
-                class="border border-gray-200 rounded-xl p-2 w-[75%]" 
+                class="border border-gray-200 rounded-xl p-2 flex-1" 
                 type="text"
                 @input="phone.number = phoneNumberUtil.format(phone.number)"
                 v-model="phone.number"
                 :id="`phoneInput${index}`"
               />
 
-              <nav>
-                <button @click="removePhone(index)" type="button" class="border h-8 w-8 rounded-full flex justify-center items-center">
-                  <img src="../../assets/icons/trash.svg" class="w-6 h-6" alt="add button">
-                </button>
+              <nav class="w-full md:w-auto flex justify-end">
+                <primary-button @click="removePhone(index)">
+                  <span>- TELEFONE</span>
+                </primary-button>
               </nav>
           </li>
         </ul>

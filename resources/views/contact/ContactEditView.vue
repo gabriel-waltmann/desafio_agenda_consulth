@@ -1,7 +1,9 @@
 <template>
   <page-container>
     <header class="flex flex-row justify-between">
-      <h1 class="text-2xl">Editar contato</h1>
+      <primary-text>
+        <span>Editar contato</span>
+      </primary-text>
     </header>
 
     <main-container>
@@ -36,6 +38,7 @@ import { ContactFormAddressEntity } from '../../entities/components/forms/contac
 import { ContactFormPhoneEntity } from '../../entities/components/forms/contact/ContactFormPhoneEntity';
 import MainContainer from '../../components/containers/MainContainerComponent.vue';
 import PageContainer from "../../components/containers/PageContainerComponent.vue";
+import PrimaryText from "../../components/texts/PrimaryTextComponent.vue";
 
 const route = useRoute();
 

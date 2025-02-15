@@ -1,7 +1,9 @@
 <template>
   <page-container>
     <header class="flex flex-row justify-between mb-4">
-      <h1 class="text-2xl">Contato</h1>
+      <primary-text>
+        <span>Detalhes do contato</span>
+      </primary-text>
     </header>
 
     <main-container>
@@ -10,7 +12,7 @@
           <article class="flex flex-col gap-2">
             <h2>Nome: {{ contact.name }}</h2>
 
-            <h2>E-mail: {{ contact.email }}</h2>
+            <p>E-mail: {{ contact.email }}</p>
           </article>
         </section>
   
@@ -19,7 +21,7 @@
 
           <ul class="flex flex-col gap-2">
             <li v-for="({ phone }) of contact.phones">
-              <h3 v-if="phone">+{{ phone.countryCode }} {{ phoneNumberUtil.format(phone.number) }}</h3>
+              <p v-if="phone">+{{ phone.countryCode }} {{ phoneNumberUtil.format(phone.number) }}</p>
             </li>
           </ul>
         </section>
@@ -69,8 +71,9 @@ import * as phoneNumberUtil from "../../utils/phone";
 import { useRoute, useRouter } from 'vue-router';
 import { onMounted, Ref, ref } from 'vue';
 import { ContactEntity } from '../../entities/contact/ContactEntity';
-import MainContainer from '../../components/containers/MainContainerComponent.vue';
 import PrimaryButton from '../../components/buttons/PrimaryButtonComponent.vue';
+import PrimaryText from "../../components/texts/PrimaryTextComponent.vue";
+import MainContainer from '../../components/containers/MainContainerComponent.vue';
 import PageContainer from "../../components/containers/PageContainerComponent.vue";
 
 const route = useRoute();
