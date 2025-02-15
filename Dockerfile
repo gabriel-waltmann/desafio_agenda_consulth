@@ -40,6 +40,19 @@ WORKDIR /var/www
 # Copy application files with correct ownership
 COPY --chown=www-data:www-data . /var/www
 
+# Install Node.js (required for Vite)
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
+
+# Install Node.js dependencies
+RUN npm install
+
+# Build assets using Vite
+RUN npm run build
+
+# Ensure correct ownership and permissions for /var/www/public/build
+RUN chown -R www-data:www-data /var/www/public/build
+
 # Ensure storage and bootstrap/cache directories are writable
 RUN mkdir -p storage/framework/{views,sessions,cache} && \
     chmod -R 775 storage bootstrap/cache

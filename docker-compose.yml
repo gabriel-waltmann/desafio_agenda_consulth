@@ -28,6 +28,7 @@ services:
       - ./app:/var/www/app
       - ./resources:/var/www/resources
       - ./.env:/var/www/.env
+      - ./public:/var/www/public
     environment:
       - APP_ENV=local
     env_file:
