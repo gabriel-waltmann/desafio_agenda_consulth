@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full flex flex-col gap-6 p-2">
+  <page-container>
     <header class="flex flex-row justify-between">
       <h1 class="text-2xl">Novo contato</h1>
     </header>
@@ -11,7 +11,7 @@
         @cancel="goToIndexPage"
       />
     </main-container>
-  </div>
+  </page-container>
 </template>
 
 <script lang="ts">
@@ -26,6 +26,7 @@ import * as phoneNumberUtil from "../../utils/phone";
 import { useRouter } from 'vue-router';
 import { ref, Ref } from 'vue';
 import MainContainer from '../../components/containers/MainContainerComponent.vue';
+import PageContainer from "../../components/containers/PageContainerComponent.vue";
 
 const form: Ref<ContactFormEntity> = ref({
   name: "",

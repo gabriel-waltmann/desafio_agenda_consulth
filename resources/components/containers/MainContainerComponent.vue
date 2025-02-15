@@ -1,6 +1,6 @@
 <template>
   <main class="w-full">
-    <div class="flex flex-col gap-2 flex-1 max-w-[800px] mx-auto">
+    <div class="flex flex-col gap-2 flex-1">
       <slot></slot>
     </div>
   </main>

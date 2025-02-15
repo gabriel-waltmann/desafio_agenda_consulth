@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full h-full flex flex-col gap-6 p-2">
-    <header class="flex flex-row justify-between">
+  <page-container>
+    <header class="flex flex-row justify-between mb-4">
       <h1 class="text-2xl">Contato</h1>
     </header>
 
@@ -15,9 +15,11 @@
         </section>
   
         <section>
+          <h2 class="text-base font-semibold">Telefones</h2>
+
           <ul class="flex flex-col gap-2">
-            <li v-for="({ phone }) of contact.phones" class="border border-gray-200 rounded-xl p-2">
-              <h3 v-if="phone">Telefone: +{{ phone.countryCode }} {{ phoneNumberUtil.format(phone.number) }}</h3>
+            <li v-for="({ phone }) of contact.phones">
+              <h3 v-if="phone">+{{ phone.countryCode }} {{ phoneNumberUtil.format(phone.number) }}</h3>
             </li>
           </ul>
         </section>
@@ -54,7 +56,7 @@
         </primary-button>
       </nav>
     </main-container>
-  </div>
+  </page-container>
 </template>
 
 <script lang="ts">
@@ -69,6 +71,7 @@ import { onMounted, Ref, ref } from 'vue';
 import { ContactEntity } from '../../entities/contact/ContactEntity';
 import MainContainer from '../../components/containers/MainContainerComponent.vue';
 import PrimaryButton from '../../components/buttons/PrimaryButtonComponent.vue';
+import PageContainer from "../../components/containers/PageContainerComponent.vue";
 
 const route = useRoute();
 

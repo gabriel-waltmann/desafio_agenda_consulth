@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full flex flex-col gap-6 p-2">
+  <page-container class="flex flex-col gap-4">
     <header class="flex flex-row justify-between">
       <h1 class="text-2xl">Contatos</h1>
 
@@ -18,7 +18,7 @@
         />
       </section>
     </main-container>
-  </div>
+  </page-container>
 </template>
 
 <script lang="ts">
@@ -32,6 +32,7 @@ import { ref, onMounted, Ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 import MainContainer from "../components/containers/MainContainerComponent.vue";
+import PageContainer from "../components/containers/PageContainerComponent.vue";
 import PrimaryButton from "../components/buttons/PrimaryButtonComponent.vue";
 
 const router = useRouter();

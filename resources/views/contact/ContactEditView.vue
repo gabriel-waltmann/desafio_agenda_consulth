@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full flex flex-col gap-6 p-2">
+  <page-container>
     <header class="flex flex-row justify-between">
       <h1 class="text-2xl">Editar contato</h1>
     </header>
@@ -17,7 +17,7 @@
         <h2 class="text-base text-center">Erro ao encontrar contato</h2>
       </template>
     </main-container>
-  </div>
+  </page-container>
 </template>
 
 <script lang="ts">
@@ -35,6 +35,7 @@ import { ContactEntity } from '../../entities/contact/ContactEntity';
 import { ContactFormAddressEntity } from '../../entities/components/forms/contact/ContactFormAddressEntity';
 import { ContactFormPhoneEntity } from '../../entities/components/forms/contact/ContactFormPhoneEntity';
 import MainContainer from '../../components/containers/MainContainerComponent.vue';
+import PageContainer from "../../components/containers/PageContainerComponent.vue";
 
 const route = useRoute();
 
