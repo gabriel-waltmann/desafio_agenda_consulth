@@ -49,5 +49,8 @@ USER www-data
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
+
+RUN composer install
+
 CMD ["php-fpm"]
 
