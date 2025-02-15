@@ -44,13 +44,18 @@ COPY --chown=www-data:www-data . /var/www
 RUN mkdir -p storage/framework/{views,sessions,cache} && \
     chmod -R 775 storage bootstrap/cache
 
+# Ensure correct ownership and permissions for /var/www
+RUN chown -R www-data:www-data /var/www && \
+chmod -R 755 /var/www
+
+# Install Composer dependencies before switching users
+RUN composer install
+
 # Change current user to www-data
 USER www-data
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
-
-RUN composer install
 
 CMD ["php-fpm"]
 

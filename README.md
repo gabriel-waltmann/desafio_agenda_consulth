@@ -16,7 +16,11 @@ Sistema de agenda em Laravel e Vuejs
 ✔️ Docker / Docker compose <br>
 
 ## 🚀 Como rodar
-1. Clone o projeto: [repo](https://github.com/gabriel-waltmann/desafio_projeta_data)
+1. Clone o projeto: git clone git@github.com:gabriel-waltmann/desafio_agenda_consulth.git
+2. Acesse o projeto no terminal: cd desafio_agenda_consulth
+3. Rode os containers: docker-compose up -d
+4. Aplique as migrations no banco de dados: docker exec -it agenda-app php artisan migrate
+5. Acesse o projeto disponível em: http://127.0.0.1:8000/ 
 
 ## License - [MIT](./LICENSE)
 [![licence mit](https://img.shields.io/badge/licence-MIT-blue.svg)](./LICENSE)
